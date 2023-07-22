@@ -629,13 +629,97 @@ function registerButtonEvent(selector: string, callback: () => void) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".js_generateButton");
-  buttons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      genereteCardImage();
-    });
-  });
   registerButtonEvent(".js_downloadButton", downloadCardImage);
   registerButtonEvent(".js_insertButton", insertText);
   // registerButtonEvent('.js_tweetButton', tweet);
+  const textareas = document.querySelectorAll(".js_input-text");
+  textareas.forEach((areas) => {
+    areas.addEventListener("input", function () {
+      genereteCardImage();
+    });
+  });
+
+  const radioFontInputs = document.querySelectorAll(
+    'input[type="radio"][name="font"]'
+  );
+  radioFontInputs.forEach((fontInput) => {
+    fontInput.addEventListener("change", function () {
+      genereteCardImage();
+    });
+  });
+
+  const radioSizeInputs = document.querySelectorAll(
+    'input[type="radio"][name="size"]'
+  );
+  radioSizeInputs.forEach((sizeInput) => {
+    sizeInput.addEventListener("change", function () {
+      genereteCardImage();
+    });
+  });
+
+  const radioCColorInputs = document.querySelectorAll(
+    'input[type="radio"][name="c_color"]'
+  );
+  radioCColorInputs.forEach((ccolorInput) => {
+    ccolorInput.addEventListener("change", function () {
+      genereteCardImage();
+    });
+  });
+
+  const radioMsColorInputs = document.querySelectorAll(
+    'input[type="radio"][name="ms_color"]'
+  );
+  radioMsColorInputs.forEach((mscolorInput) => {
+    mscolorInput.addEventListener("change", function () {
+      genereteCardImage();
+    });
+  });
+
+  const radioSsColorInputs = document.querySelectorAll(
+    'input[type="radio"][name="ss_color"]'
+  );
+  radioSsColorInputs.forEach((sscolorInput) => {
+    sscolorInput.addEventListener("change", function () {
+      genereteCardImage();
+    });
+  });
+
+  const colorPicker1 = document.querySelector(".c_picker") as HTMLInputElement;
+  if (colorPicker1) {
+    colorPicker1.addEventListener("change", function (event) {
+      const selectedRadio = document.querySelector(
+        `input[type="radio"][class="picker"][name="c_color"]`
+      ) as HTMLInputElement;
+      if (selectedRadio) {
+        selectedRadio.checked = true;
+      }
+      genereteCardImage();
+    });
+  }
+
+  const colorPicker2 = document.querySelector(".ms_picker") as HTMLInputElement;
+  if (colorPicker2) {
+    colorPicker2.addEventListener("change", function (event) {
+      const selectedRadio = document.querySelector(
+        `input[type="radio"][class="picker"][name="ms_color"]`
+      ) as HTMLInputElement;
+      if (selectedRadio) {
+        selectedRadio.checked = true;
+      }
+      genereteCardImage();
+    });
+  }
+
+  const colorPicker3 = document.querySelector(".ss_picker") as HTMLInputElement;
+  if (colorPicker3) {
+    colorPicker3.addEventListener("change", function (event) {
+      const selectedRadio = document.querySelector(
+        `input[type="radio"][class="picker"][name="ss_color"]`
+      ) as HTMLInputElement;
+      if (selectedRadio) {
+        selectedRadio.checked = true;
+      }
+      genereteCardImage();
+    });
+  }
 });

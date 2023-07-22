@@ -24,19 +24,23 @@ h2 {
   gap: 8px;
 
   input[type="button"] {
+    margin-top: 30px;
     width: 320px;
     max-width: 320px;
     padding: 10px;
     font-size: 1em;
+
+    align-items: center;
+
     text-decoration: none;
     font-weight: bold;
-    border: 2px solid #F2BBC9;
-    background: #F2BBC9;
+    border: 2px solid #D95555;
+    background: #D95555;
     color: #fff;
     transition: 0.5s;
 
     &:hover {
-      color: #F2BBC9;
+      color: #D95555;
       background: #fff;
     }
 
@@ -95,34 +99,6 @@ h2 {
   input[type="radio"] {
     align-self: unset;
   }
-
-  input[type="button"] {
-    margin-top: 30px;
-    width: 320px;
-    max-width: 320px;
-    padding: 10px;
-    font-size: 1em;
-
-    align-items: center;
-
-    text-decoration: none;
-    font-weight: bold;
-    border: 2px solid #D95555;
-    background: #D95555;
-    color: #fff;
-    transition: 0.5s;
-
-    &:hover {
-      color: #D95555;
-      background: #fff;
-    }
-
-    &:disabled {
-      color: #bbb;
-      background-color: white;
-      border-color: #bbb;
-    }
-  }
 }
 
 .editor {
@@ -178,7 +154,7 @@ h2 {
 .tab_item {
   width: calc(100%/3);
   height: 50px;
-  border-bottom: 3px solid #D95555;
+  border-bottom: 3px solid #f09199;
   background-color: #d9d9d9;
   line-height: 50px;
   font-size: 16px;
@@ -218,7 +194,7 @@ input[name="tab_item"] {
 
 /*選択されているタブのスタイルを変える*/
 .tabs input:checked+.tab_item {
-  background-color: #D95555;
+  background-color: #f09199;
   color: #fff;
 }
 

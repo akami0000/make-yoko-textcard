@@ -348,13 +348,40 @@ var tategaki = function (
     fontSetting(context, 2);
     var lineWidth = context.measureText("あ").width;
 
-    noteList.forEach(function (elm, i) {
-      var drawX = x * 0.95 - elm.length * lineWidth;
-      var drawY = y * 0.95;
+    // タイトル
+    let text: string = noteList[0];
+    let start_index_1: number = -1;
+    let start_index_2: number = -1;
 
-      Array.prototype.forEach.call(elm, function (ch, j) {
-        context.fillText(ch, drawX + j * lineWidth, drawY);
-      });
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i);
+      if (char === "*") {
+        if (text.substring(i, i + 3) === "***") {
+          if (start_index_1 === -1) {
+            start_index_1 = i;
+          } else {
+            start_index_2 = i - 4;
+            break;
+          }
+        }
+      }
+    }
+
+    if (text.indexOf("***") !== -1) text = text.replace(/\*/g, "");
+
+    Array.prototype.forEach.call(text, function (ch, j) {
+      // Canvasの文字色設定
+      if (
+        start_index_1 == -1 ||
+        j < start_index_1 ||
+        (start_index_2 != -1 && start_index_2 < j)
+      )
+        context.fillStyle = getSelectedMainStrColor();
+      else context.fillStyle = getSelectedSubStrColor();
+
+      var drawX = x * 0.95 - text.length * lineWidth;
+      var drawY = y * 0.95;
+      context.fillText(ch, drawX + j * lineWidth, drawY);
     });
   }
 

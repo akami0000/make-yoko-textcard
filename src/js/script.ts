@@ -297,94 +297,66 @@ var tategaki = function (
   y: number
 ) {
   // タイトル出力
-  // {
-  //   var titleList = title.split("\n");
-  //   // フォント設定
-  //   fontSetting(context, 0);
-  //   var lineWidth = context.measureText("あ").width;
+  {
+    var titleList = title.split("\n");
+    // フォント設定
+    fontSetting(context, 0);
+    var lineWidth = context.measureText("あ").width;
 
-  //   // タイトル
-  //   let text: string = titleList[0];
-  //   let start_index_1: number = -1;
-  //   let start_index_2: number = -1;
+    // タイトル
+    let text: string = titleList[0];
+    let start_index_1: number = -1;
+    let start_index_2: number = -1;
 
-  //   for (let i = 0; i < text.length; i++) {
-  //     const char = text.charAt(i);
-  //     if (char === "*") {
-  //       if (text.substring(i, i + 3) === "***") {
-  //         if (start_index_1 === -1) {
-  //           start_index_1 = i;
-  //         } else {
-  //           start_index_2 = i - 4;
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   }
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i);
+      if (char === "*") {
+        if (text.substring(i, i + 3) === "***") {
+          if (start_index_1 === -1) {
+            start_index_1 = i;
+          } else {
+            start_index_2 = i - 4;
+            break;
+          }
+        }
+      }
+    }
 
-  //   if (text.indexOf("***") !== -1) text = text.replace(/\*/g, "");
+    if (text.indexOf("***") !== -1) text = text.replace(/\*/g, "");
 
-  //   Array.prototype.forEach.call(text, function (ch, j) {
-  //     // Canvasの文字色設定
-  //     if (
-  //       start_index_1 == -1 ||
-  //       j < start_index_1 ||
-  //       (start_index_2 != -1 && start_index_2 < j)
-  //     )
-  //       context.fillStyle = getSelectedMainStrColor();
-  //     else context.fillStyle = getSelectedSubStrColor();
+    var drawX = x * 0.1;
+    var drawY = y * 0.15;
 
-  //     // Xは固定値
-  //     var drawX = x * 0.9;
-  //     // Canvasの横サイズ・文章の長さによる描画開始位置Yの調整調整（詞書は除く）
-  //     var drawY = (y - lineWidth * text.length) / 2 + lineWidth;
+    Array.prototype.forEach.call(text, function (ch, j) {
+      // Canvasの文字色設定
+      if (
+        start_index_1 == -1 ||
+        j < start_index_1 ||
+        (start_index_2 != -1 && start_index_2 < j)
+      )
+        context.fillStyle = getSelectedMainStrColor();
+      else context.fillStyle = getSelectedSubStrColor();
 
-  //     var charPos = chkRotate(ch, lineWidth);
-  //     // パスをリセット
-  //     context.beginPath();
-  //     // 回転 (n度)
-  //     context.translate(
-  //       drawX - lineWidth + charPos.transPosX,
-  //       drawY + (lineWidth * j + charPos.transPosY)
-  //     );
-  //     context.rotate((charPos.angle * Math.PI) / 180);
-  //     context.translate(
-  //       -(drawX - lineWidth + charPos.transPosX),
-  //       -(drawY + (lineWidth * j + charPos.transPosY))
-  //     );
+      context.fillText(ch, drawX + j * lineWidth, drawY);
+    });
+  }
 
-  //     context.fillText(
-  //       ch,
-  //       drawX - lineWidth + charPos.drawPosX,
-  //       drawY + lineWidth * j + charPos.drawPosY
-  //     );
+  // 付記1出力
+  {
+    var noteList = note1.split("\n");
+    // フォント設定
+    fontSetting(context, 2);
+    var lineWidth = context.measureText("あ").width;
 
-  //     // 回転 (n度)
-  //     context.translate(
-  //       drawX - lineWidth + charPos.transPosX,
-  //       drawY + (lineWidth * j + charPos.transPosY)
-  //     );
-  //     context.rotate((-charPos.angle * Math.PI) / 180);
-  //     context.translate(
-  //       -(drawX - lineWidth + charPos.transPosX),
-  //       -(drawY + (lineWidth * j + charPos.transPosY))
-  //     );
-  //   });
-  // }
+    noteList.forEach(function (elm, i) {
+      var drawX = x * 0.95 - elm.length * lineWidth;
+      var drawY = y * 0.95;
 
-  // // 付記1出力
-  // {
-  //   var noteList = note1.split("\n");
-  //   // フォント設定
-  //   fontSetting(context, 2);
-  //   var lineWidth = context.measureText("あ").width;
-
-  //   noteList.forEach(function (elm, i) {
-  //     var drawX = x * 0.5 - 600;
-  //     var drawY = y * 0.95;
-  //     context.fillText(elm, drawX, drawY);
-  //   });
-  // }
+      Array.prototype.forEach.call(elm, function (ch, j) {
+        context.fillText(ch, drawX + j * lineWidth, drawY);
+      });
+    });
+  }
 
   // 本文出力
   {

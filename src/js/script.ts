@@ -277,12 +277,16 @@ function drawCanvas() {
   const note1 = document.getElementsByClassName(
     "js_input-text"
   )[2] as HTMLInputElement;
+  const note2 = document.getElementsByClassName(
+    "js_input-text"
+  )[3] as HTMLInputElement;
 
   tategaki(
     context,
     title.value,
     text.value,
     note1.value,
+    note2.value,
     canvas.width,
     canvas.height
   );
@@ -293,6 +297,7 @@ var tategaki = function (
   title: string,
   text: string,
   note1: string,
+  note2: string,
   x: number,
   y: number
 ) {
@@ -348,7 +353,6 @@ var tategaki = function (
     fontSetting(context, 2);
     var lineWidth = context.measureText("あ").width;
 
-    // タイトル
     let text: string = noteList[0];
     let start_index_1: number = -1;
     let start_index_2: number = -1;
@@ -380,6 +384,50 @@ var tategaki = function (
       else context.fillStyle = getSelectedSubStrColor();
 
       var drawX = x * 0.95 - text.length * lineWidth;
+      var drawY = y * 0.95;
+      context.fillText(ch, drawX + j * lineWidth, drawY);
+    });
+  }
+
+  // 付記2出力
+  {
+    var noteList = note2.split("\n");
+    // フォント設定
+    fontSetting(context, 2);
+    var lineWidth = context.measureText("あ").width;
+
+    // タイトル
+    let text: string = noteList[0];
+    let start_index_1: number = -1;
+    let start_index_2: number = -1;
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i);
+      if (char === "*") {
+        if (text.substring(i, i + 3) === "***") {
+          if (start_index_1 === -1) {
+            start_index_1 = i;
+          } else {
+            start_index_2 = i - 4;
+            break;
+          }
+        }
+      }
+    }
+
+    if (text.indexOf("***") !== -1) text = text.replace(/\*/g, "");
+
+    Array.prototype.forEach.call(text, function (ch, j) {
+      // Canvasの文字色設定
+      if (
+        start_index_1 == -1 ||
+        j < start_index_1 ||
+        (start_index_2 != -1 && start_index_2 < j)
+      )
+        context.fillStyle = getSelectedMainStrColor();
+      else context.fillStyle = getSelectedSubStrColor();
+
+      var drawX = (x - lineWidth * (text.length - 0)) / 2;
       var drawY = y * 0.95;
       context.fillText(ch, drawX + j * lineWidth, drawY);
     });

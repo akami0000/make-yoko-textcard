@@ -415,7 +415,7 @@ var tategaki = function (
       }
     });
 
-    var startY = (x - lineWidth * (maxLength - 0)) / 2 + lineWidth;
+    var startY = (x - lineWidth * (maxLength - 0)) / 2;
 
     textList.forEach(function (elm, i) {
       fontSetting(context, 1);
